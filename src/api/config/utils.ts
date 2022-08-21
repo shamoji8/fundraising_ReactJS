@@ -2,9 +2,9 @@
 // import { u8aToHex, stringToHex } from '@polkadot/util';
 // import { web3FromSource } from '@polkadot/extension-dapp';
 // import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
-import { ApiPromise, WsProvider } from '@polkadot/api';
+import { ApiPromise, WsProvider } from "@polkadot/api";
 
-const WS_PROVIDER = 'ws://127.0.0.1:9944'
+const WS_PROVIDER = "wss://smartcv.org/smartcv-node";
 let api: ApiPromise;
 
 export async function getApi() {

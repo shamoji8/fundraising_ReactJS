@@ -1,12 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
 import { SubstrateProvider } from "./api/providers/connectProvider";
+import { BrowserRouter } from "react-router-dom";
+import Router from "./routes/Router";
 
 function App() {
   return (
     <SubstrateProvider>
-
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
     </SubstrateProvider>
   );
 }
