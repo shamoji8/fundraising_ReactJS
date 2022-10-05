@@ -4,7 +4,12 @@
 // import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import { ApiPromise, WsProvider } from "@polkadot/api";
 
-const WS_PROVIDER = "wss://smartcv.org/smartcv-node";
+
+//Staging mode
+// const WS_PROVIDER = "wss://smartcv.org/smartcv-node";
+
+//Develop mode
+const WS_PROVIDER = "ws://127.0.0.1:9944";
 let api: ApiPromise;
 
 export async function getApi() {
