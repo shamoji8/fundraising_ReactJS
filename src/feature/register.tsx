@@ -5,6 +5,7 @@ import { useSubstrate } from "../api/providers/connectContext";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { web3FromAddress } from '@polkadot/extension-dapp';
+import ButtonAction from "./components/ButtonAction";
 
 export interface IRegisterProps { }
 
@@ -91,7 +92,12 @@ export default function Register(props: IRegisterProps) {
     setText("");
   }
 
-  return <div>
+  return (
+  <div>
+    Register<br></br>
+
+    <p><ButtonAction link2page={"/"} buttonName={"BACK TO HOMEPAGE"} multi_col={false}/></p>
+
     <input
       value={text}
       onChange={(event) => setText(event.target.value)}
@@ -112,5 +118,6 @@ export default function Register(props: IRegisterProps) {
     <Button onClick={handleQuery}>
       Query me
     </Button>
-  </div>;
+  </div>
+  )
 }
