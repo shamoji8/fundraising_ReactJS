@@ -96,7 +96,8 @@ export default function Register(props: IRegisterProps) {
   <div>
     Register<br></br>
 
-    <p><ButtonAction link2page={"/"} buttonName={"BACK TO HOMEPAGE"} multi_col={false}/></p>
+    <p><ButtonAction link2page={"/"} buttonName={"BACK TO HOMEPAGE"} multi_col={true}/></p>
+    <br></br>
 
     <input
       value={text}
@@ -111,13 +112,21 @@ export default function Register(props: IRegisterProps) {
     {/* ↓pタグを追加 */}
     <p>ボタンクリック：{addText}</p>
 
+    <br></br>
+
+    <div className = 'register'>
     <Button onClick={handleTransaction}>
       Transaction me
     </Button>
+    </div>
 
+    <br></br>
+
+    <div className = 'register'>
     <Button onClick={handleQuery}>
       Query me
     </Button>
+    </div>
   </div>
   )
 }
