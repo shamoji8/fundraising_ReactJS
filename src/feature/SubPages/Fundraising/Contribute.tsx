@@ -7,9 +7,9 @@ import Button from '@mui/material/Button';
 import { web3FromAddress } from '@polkadot/extension-dapp';
 import ButtonAction from "../../components/ButtonAction";
 
-export interface IEvaluationProps { }
+export interface IContributeProps { }
 
-export default function Evaluation(props: IEvaluationProps) {
+export default function Evaluation(props: IContributeProps) {
   const { getExtension, accounts } = useSubstrate();
 
   const [apiBC, setApiBC] = React.useState<any>();
@@ -34,11 +34,6 @@ export default function Evaluation(props: IEvaluationProps) {
   /* ↓state変数「addText」を定義 */
   const [addText2, setAddText2] = useState("");
 
-  const [text3, setText3] = useState("");
-
-  /* ↓state変数「addText」を定義 */
-  const [addText3, setAddText3] = useState("");
-
   const handleTransaction = async () => {
 
     if (accounts !== null) {
@@ -49,10 +44,10 @@ export default function Evaluation(props: IEvaluationProps) {
         //const num = Number(addText);
         //ordered param
         // change module+
-        await apiBC.tx.rating
+        await apiBC.tx.fundRaising
           // fixed value
           // dynamic value
-          .evaluation(addText1, addText2, addText3)
+          .contribute(addText1, addText2)
           .signAndSend(
             accounts[0].address,
             { signer: injector?.signer },
@@ -105,19 +100,14 @@ export default function Evaluation(props: IEvaluationProps) {
     setText2("");
   }
 
-  const onClickAddText3 = () => {
-    setAddText3(text3);
-    setText3("");
-  }
-
   return (
     <div>
-      Evaluation<br></br>
+      Contribute<br></br>
 
-      <p><ButtonAction link2page={"/Rating"} buttonName={"Rating"} multi_col={true} /></p>
+      <p><ButtonAction link2page={"/Fundraising"} buttonName={"Fundraising"} multi_col={true} /></p>
       <br></br>
 
-      <p>Enter the account you want to evaluate</p>
+      <p>Enter the fundindex and value you want to contribute</p>
       <br></br>
       <p>FundIndex</p>
       <input
@@ -147,19 +137,6 @@ export default function Evaluation(props: IEvaluationProps) {
       <p>ボタンクリック：{addText2}</p>
 
       <br></br>
-      <p>Rate (1 ~ 6)</p>
-      <input
-        value={text3}
-        onChange={(event) => setText3(event.target.value)}
-      />
-
-      {/* ↓buttonを追加 */}
-      <button onClick={onClickAddText3}>追加</button>
-
-      {/* ↓pタグを追加 */}
-      <p>ボタンクリック：{addText3}</p>
-
-      <br></br>
 
       <div className='register'>
         <Button onClick={handleTransaction}>
@@ -169,7 +146,6 @@ export default function Evaluation(props: IEvaluationProps) {
 
       <br></br>
 
-      {/* 消してもいいかも */}
       <div className='register'>
         <Button onClick={handleQuery}>
           Query me

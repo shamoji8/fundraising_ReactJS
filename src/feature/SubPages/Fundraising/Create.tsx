@@ -49,10 +49,10 @@ export default function Evaluation(props: IEvaluationProps) {
         //const num = Number(addText);
         //ordered param
         // change module+
-        await apiBC.tx.rating
+        await apiBC.tx.fundRaising
           // fixed value
           // dynamic value
-          .evaluation(addText1, addText2, addText3)
+          .create(addText1, addText2, addText3)
           .signAndSend(
             accounts[0].address,
             { signer: injector?.signer },
@@ -112,14 +112,14 @@ export default function Evaluation(props: IEvaluationProps) {
 
   return (
     <div>
-      Evaluation<br></br>
+      Create<br></br>
 
-      <p><ButtonAction link2page={"/Rating"} buttonName={"Rating"} multi_col={true} /></p>
+      <p><ButtonAction link2page={"/Fundraising"} buttonName={"Fundraising"} multi_col={true} /></p>
       <br></br>
 
-      <p>Enter the account you want to evaluate</p>
+      <p>Enter the beneficiary, goal, and end to create project.</p>
       <br></br>
-      <p>FundIndex</p>
+      <p>Beneficiary</p>
       <input
         value={text1}
         onChange={(event) => setText1(event.target.value)}
@@ -134,7 +134,7 @@ export default function Evaluation(props: IEvaluationProps) {
       <p>ボタンクリック：{addText1}</p>
 
       <br></br>
-      <p>Account</p>
+      <p>Goal</p>
       <input
         value={text2}
         onChange={(event) => setText2(event.target.value)}
@@ -147,7 +147,7 @@ export default function Evaluation(props: IEvaluationProps) {
       <p>ボタンクリック：{addText2}</p>
 
       <br></br>
-      <p>Rate (1 ~ 6)</p>
+      <p>End</p>
       <input
         value={text3}
         onChange={(event) => setText3(event.target.value)}

@@ -7,9 +7,9 @@ import Button from '@mui/material/Button';
 import { web3FromAddress } from '@polkadot/extension-dapp';
 import ButtonAction from "../../components/ButtonAction";
 
-export interface IEvaluationProps { }
+export interface IUpdateProps { }
 
-export default function Evaluation(props: IEvaluationProps) {
+export default function Update(props: IUpdateProps) {
   const { getExtension, accounts } = useSubstrate();
 
   const [apiBC, setApiBC] = React.useState<any>();
@@ -24,20 +24,10 @@ export default function Evaluation(props: IEvaluationProps) {
     getExtension();
   }, []);
 
-  const [text1, setText1] = useState("");
-
-  /* ↓state変数「addText1」を定義 */
-  const [addText1, setAddText1] = useState("");
-
-  const [text2, setText2] = useState("");
+  const [text, setText] = useState("");
 
   /* ↓state変数「addText」を定義 */
-  const [addText2, setAddText2] = useState("");
-
-  const [text3, setText3] = useState("");
-
-  /* ↓state変数「addText」を定義 */
-  const [addText3, setAddText3] = useState("");
+  const [addText, setAddText] = useState("");
 
   const handleTransaction = async () => {
 
@@ -49,10 +39,10 @@ export default function Evaluation(props: IEvaluationProps) {
         //const num = Number(addText);
         //ordered param
         // change module+
-        await apiBC.tx.rating
+        await apiBC.tx.fundRaising
           // fixed value
           // dynamic value
-          .evaluation(addText1, addText2, addText3)
+          .dispense(addText)
           .signAndSend(
             accounts[0].address,
             { signer: injector?.signer },
@@ -95,71 +85,32 @@ export default function Evaluation(props: IEvaluationProps) {
     console.log(res.toHuman());
   }
 
-  const onClickAddText1 = () => {
-    setAddText1(text1);
-    setText1("");
-  }
-
-  const onClickAddText2 = () => {
-    setAddText2(text2);
-    setText2("");
-  }
-
-  const onClickAddText3 = () => {
-    setAddText3(text3);
-    setText3("");
+  const onClickAddText = () => {
+    setAddText(text);
+    setText("");
   }
 
   return (
     <div>
-      Evaluation<br></br>
+      Dispense<br></br>
 
-      <p><ButtonAction link2page={"/Rating"} buttonName={"Rating"} multi_col={true} /></p>
+      <p><ButtonAction link2page={"/Fundraising"} buttonName={"Fundraising"} multi_col={true} /></p>
       <br></br>
 
-      <p>Enter the account you want to evaluate</p>
+      <p>Enter the Fundindex you want to dispense.</p>
       <br></br>
-      <p>FundIndex</p>
+      <p>Fundindex</p>
       <input
-        value={text1}
-        onChange={(event) => setText1(event.target.value)}
+        value={text}
+        onChange={(event) => setText(event.target.value)}
       />
-
       {/* ↓buttonを追加 */}
-      <button onClick={onClickAddText1}>追加</button>
+      <button onClick={onClickAddText}>追加</button>
 
       {/*<p>リアルタイム：{text}</p>*/}
 
       {/* ↓pタグを追加 */}
-      <p>ボタンクリック：{addText1}</p>
-
-      <br></br>
-      <p>Account</p>
-      <input
-        value={text2}
-        onChange={(event) => setText2(event.target.value)}
-      />
-
-      {/* ↓buttonを追加 */}
-      <button onClick={onClickAddText2}>追加</button>
-
-      {/* ↓pタグを追加 */}
-      <p>ボタンクリック：{addText2}</p>
-
-      <br></br>
-      <p>Rate (1 ~ 6)</p>
-      <input
-        value={text3}
-        onChange={(event) => setText3(event.target.value)}
-      />
-
-      {/* ↓buttonを追加 */}
-      <button onClick={onClickAddText3}>追加</button>
-
-      {/* ↓pタグを追加 */}
-      <p>ボタンクリック：{addText3}</p>
-
-      <br></br>
+      <p>ボタンクリック：{addText}</p>
 
       <div className='register'>
         <Button onClick={handleTransaction}>
@@ -169,7 +120,6 @@ export default function Evaluation(props: IEvaluationProps) {
 
       <br></br>
 
-      {/* 消してもいいかも */}
       <div className='register'>
         <Button onClick={handleQuery}>
           Query me
