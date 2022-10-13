@@ -6,10 +6,12 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { web3FromAddress } from '@polkadot/extension-dapp';
 import ButtonAction from "../../components/ButtonAction";
+import AccInfo from "../../components/AccInfo";
 
-export interface IUpdateProps { }
+export interface IUpdateProps {}
 
 export default function Update(props: IUpdateProps) {
+
   const { getExtension, accounts } = useSubstrate();
 
   const [apiBC, setApiBC] = React.useState<any>();
@@ -86,6 +88,8 @@ export default function Update(props: IUpdateProps) {
 
   }
 
+  const acc = [];
+
   const handleQuery = async () => {
     // change module
     console.log("current Account:", accounts);
@@ -100,6 +104,7 @@ export default function Update(props: IUpdateProps) {
           metadata: res.toHuman().metadata,
           score: res.toHuman().score,
         }
+        acc.push(account);
         console.log(account);
         console.log(res.toHuman().score);
       }
@@ -110,6 +115,19 @@ export default function Update(props: IUpdateProps) {
     setAddText(text);
     setText("");
   }
+
+  const viewAccount = async () => {
+    console.log("current Account:", accounts);
+    const res = await apiBC.query.account.accountStorage(accounts[0].address);
+  }
+
+  const items = [
+    {A: "A1", B: "B1" , C: "C1"},
+    {A: "A1", B: "B2" , C: "C1"},
+    {A: "A1", B: "B2" , C: "C2"},
+    {A: "A2", B: "B1" , C: "C1"},
+    {A: "A2", B: "B1" , C: "C2"},
+  ];
 
   return (
     <div>
@@ -148,6 +166,21 @@ export default function Update(props: IUpdateProps) {
       <br></br>
 
       <div id="sampleArea">サンプル</div>
+
+      <table border={1}>
+      {items.map((item) => {
+        return(
+          <tr>
+            <td >{item.A}</td>
+            <td >{item.B}</td>
+            <td >{item.C}</td>
+          </tr>
+        )
+      })}
+    </table>
+
+    <AccInfo/>
+
     </div>
   )
 }
