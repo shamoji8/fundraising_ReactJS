@@ -73,6 +73,7 @@ export default function Register(props: IRegisterProps) {
             }
           );
       });
+
       console.log(await events);
     }
 
@@ -82,6 +83,10 @@ export default function Register(props: IRegisterProps) {
     // change module
     console.log("current Account:", accounts);
     const res = await apiBC.query.account.accountStorage(accounts[0].address);
+    var sampleArea = document.getElementById("sampleArea");
+      if (sampleArea) {
+        sampleArea.innerHTML = res;
+      }
     console.log(res.toHuman());
   }
 
@@ -89,6 +94,19 @@ export default function Register(props: IRegisterProps) {
     setAddText(text);
     setText("");
   }
+
+  function getter() {
+    if (accounts !== null) {
+      var sampleArea = document.getElementById("sampleArea");
+      const res = apiBC.query.account.accountStorage(accounts[0].address);
+      if (sampleArea) {
+        sampleArea.innerHTML = res;
+      } else {
+        return null;
+      }
+    }
+  }
+
 
   return (
     <div>
@@ -124,6 +142,10 @@ export default function Register(props: IRegisterProps) {
           Query me
         </Button>
       </div>
+
+      <br></br>
+
+      <div id="sampleArea">サンプル</div>
     </div>
   )
 }

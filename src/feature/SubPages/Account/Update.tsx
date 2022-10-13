@@ -29,6 +29,14 @@ export default function Update(props: IUpdateProps) {
   /* ↓state変数「addText」を定義 */
   const [addText, setAddText] = useState("");
 
+  type Account = {
+    id: string;
+    role: string;
+    status: string;
+    metadata: string;
+    score: string;
+  }
+
   const handleTransaction = async () => {
 
     if (accounts !== null) {
@@ -82,6 +90,19 @@ export default function Update(props: IUpdateProps) {
     // change module
     console.log("current Account:", accounts);
     const res = await apiBC.query.account.accountStorage(accounts[0].address);
+    var sampleArea = document.getElementById("sampleArea");
+      if (sampleArea) {
+        sampleArea.innerHTML = res.toHuman().id;
+        const account: Account = {
+          id: res.toHuman().id,
+          role: res.toHuman().role,
+          status: res.toHuman().status,
+          metadata: res.toHuman().metadata,
+          score: res.toHuman().score,
+        }
+        console.log(account);
+        console.log(res.toHuman().score);
+      }
     console.log(res.toHuman());
   }
 
@@ -123,6 +144,10 @@ export default function Update(props: IUpdateProps) {
           Query me
         </Button>
       </div>
+
+      <br></br>
+
+      <div id="sampleArea">サンプル</div>
     </div>
   )
 }
