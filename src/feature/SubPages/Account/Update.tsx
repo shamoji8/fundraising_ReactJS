@@ -88,12 +88,13 @@ export default function Update(props: IUpdateProps) {
 
   }
 
-  const acc = [];
+  let acc;
 
   const handleQuery = async () => {
     // change module
     console.log("current Account:", accounts);
     const res = await apiBC.query.account.accountStorage(accounts[0].address);
+
     var sampleArea = document.getElementById("sampleArea");
       if (sampleArea) {
         sampleArea.innerHTML = res.toHuman().id;
@@ -178,9 +179,6 @@ export default function Update(props: IUpdateProps) {
         )
       })}
     </table>
-
-    <AccInfo/>
-
     </div>
   )
 }

@@ -2,7 +2,7 @@ import React from 'react';
  
 const TYPE_NUMBER = 'NUMBER';
 
-interface Props{}
+interface Props{data:any}
  
 const TABLE_DEFINE: any = [
   { label: '名前', key: 'name' },
@@ -12,7 +12,11 @@ const TABLE_DEFINE: any = [
   { label: '登録日時', key: 'createdAt' },
 ];
 
-const data: any = {// 実際は axios か何かで外部からとってきて props で渡されることが多いです。
+ 
+const AccInfo: React.FC<Props> = (props) => {
+  const data = props.data;
+  /*
+  const data = {// 実際は axios か何かで外部からとってきて props で渡されることが多いです。
     body: {
       data: [
         {
@@ -33,10 +37,8 @@ const data: any = {// 実際は axios か何かで外部からとってきて pr
         },
       ],
     },
-}
- 
-const AccInfo: React.FC<Props> = (props) => {
-  //const data = '省略';
+  };
+  */
  
   return (
     <table>
