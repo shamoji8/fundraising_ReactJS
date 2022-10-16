@@ -14,6 +14,8 @@ const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
     <p><ButtonAction link2page={"/Account"} buttonName={"Account"} multi_col={true}/></p> <br></br>
     <p><ButtonAction link2page={"/Rating"} buttonName={"Rating"} multi_col={true}/></p> <br></br>
     <p><ButtonAction link2page={"/Fundraising"} buttonName={"Fundraising"} multi_col={true}/></p> <br></br>
+    <p><ButtonAction link2page={"/Test"} buttonName={"Test"} multi_col={true}/></p> <br></br>
+
     {/*<p><ButtonAction link2page={"/Regist"} buttonName={"Regist"} multi_col={true}/></p>*/}
   </div>
   )

@@ -17,6 +17,7 @@ import Dissolve from "../feature/SubPages/Fundraising/Dissolve";
 import Vote from "../feature/SubPages/Fundraising/Vote";
 import Withdraw from "../feature/SubPages/Fundraising/Withdraw";
 import Regist from "../feature/MainPages/Regist";
+import Test from "../feature/SubPages/Test";
 
 function Router() {
   return (
@@ -39,6 +40,7 @@ function Router() {
       <Route path="/Vote" element={<Vote />} />
       <Route path="/Withdraw" element={<Withdraw />} />
       <Route path="/Regist" element={<Regist />} />
+      <Route path="/Test" element={<Test />} />
     </Routes>
   );
 }

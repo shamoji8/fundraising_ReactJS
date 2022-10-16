@@ -7,8 +7,9 @@ import Button from '@mui/material/Button';
 import { web3FromAddress } from '@polkadot/extension-dapp';
 import ButtonAction from "../../components/ButtonAction";
 import AccInfo from "../../components/AccInfo";
+import FundInfo from "../../components/FundInfo";
 
-export interface IUpdateProps {}
+export interface IUpdateProps { }
 
 export default function Update(props: IUpdateProps) {
 
@@ -84,32 +85,45 @@ export default function Update(props: IUpdateProps) {
           );
       });
       console.log(await events);
+      console.log("a");
+      console.log(await apiBC.query.fundRaising.funds);
     }
 
   }
 
-  let acc;
+  let accs: any = [
+    {id: "id", role: "role", status: "status", metadata: "metadata", score: "score"},
+    {id: "", role: "", status: "", metadata: "", score: ""}
+  ];
 
   const handleQuery = async () => {
     // change module
     console.log("current Account:", accounts);
     const res = await apiBC.query.account.accountStorage(accounts[0].address);
-
     var sampleArea = document.getElementById("sampleArea");
-      if (sampleArea) {
-        sampleArea.innerHTML = res.toHuman().id;
-        const account: Account = {
-          id: res.toHuman().id,
-          role: res.toHuman().role,
-          status: res.toHuman().status,
-          metadata: res.toHuman().metadata,
-          score: res.toHuman().score,
-        }
-        acc.push(account);
-        console.log(account);
-        console.log(res.toHuman().score);
+    if (sampleArea) {
+      // sampleArea.innerHTML = res.toHuman().id;
+      sampleArea.innerHTML =await apiBC.query.fundRaising.fundCount();
+      /*
+      const account: Account = {
+        id: res.toHuman().id,
+        role: res.toHuman().role,
+        status: res.toHuman().status,
+        metadata: res.toHuman().metadata,
+        score: res.toHuman().score,
       }
-    console.log(res.toHuman());
+      */
+      accs[1].id = res.toHuman().id;
+      accs[1].role = res.toHuman().role;
+      accs[1].status = res.toHuman().status;
+      accs[1].metadata = res.toHuman().metadata;
+      accs[1].score = res.toHuman().score;
+      //accs.push(account);
+      console.log(accs);
+      //console.log(account);
+      console.log(res.toHuman().score);
+    }
+    //console.log(res.toHuman());
   }
 
   const onClickAddText = () => {
@@ -117,17 +131,30 @@ export default function Update(props: IUpdateProps) {
     setText("");
   }
 
-  const viewAccount = async () => {
-    console.log("current Account:", accounts);
-    const res = await apiBC.query.account.accountStorage(accounts[0].address);
+  const onClieckAccount = () => {
+    return (
+      <table border={1}>
+        {accs.map((acc: any) => {
+          return (
+            <tr>
+              <td >{acc.id}</td>
+              <td >{acc.role}</td>
+              <td >{acc.status}</td>
+              <td >{acc.metadata}</td>
+              <td >{acc.score}</td>
+            </tr>
+          )
+        })}
+      </table>
+    )
   }
 
   const items = [
-    {A: "A1", B: "B1" , C: "C1"},
-    {A: "A1", B: "B2" , C: "C1"},
-    {A: "A1", B: "B2" , C: "C2"},
-    {A: "A2", B: "B1" , C: "C1"},
-    {A: "A2", B: "B1" , C: "C2"},
+    { A: "A1", B: "B1", C: "C1" },
+    { A: "A1", B: "B2", C: "C1" },
+    { A: "A1", B: "B2", C: "C2" },
+    { A: "A2", B: "B1", C: "C1" },
+    { A: "A2", B: "B1", C: "C2" },
   ];
 
   return (
@@ -169,16 +196,22 @@ export default function Update(props: IUpdateProps) {
       <div id="sampleArea">サンプル</div>
 
       <table border={1}>
-      {items.map((item) => {
-        return(
-          <tr>
-            <td >{item.A}</td>
-            <td >{item.B}</td>
-            <td >{item.C}</td>
-          </tr>
-        )
-      })}
-    </table>
+        {items.map((item) => {
+          return (
+            <tr>
+              <td >{item.A}</td>
+              <td >{item.B}</td>
+              <td >{item.C}</td>
+            </tr>
+          )
+        })}
+      </table>
+
+      <Button onClick={onClieckAccount}>
+          Account
+        </Button>
+
+      {<FundInfo />}
     </div>
   )
 }
