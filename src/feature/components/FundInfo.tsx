@@ -33,7 +33,6 @@ let Funds: any = [
     }
 ];
 
-
 const FundInfo: React.FC<Props> = (props) => {
 
     const { getExtension, accounts } = useSubstrate();
@@ -51,45 +50,50 @@ const FundInfo: React.FC<Props> = (props) => {
         getExtension();
     }, []);
 
-    const renderFlgRef = useRef(false)
-
     let len;
 
     useEffect(() => {
-        (async () => {
+        const fn = async () => {
             //const res = await apiBC.query.fundRaising.funds
             const index = await apiBC.query.fundRaising.fundCount()
-            let num:number = index.toHuman()
+            let num: number = index.toHuman()
             len = num;
+            console.log("num:", num);
 
             for (let i = 0; i < num; i++) {
                 const tmp = await apiBC.query.fundRaising.funds(i)
                 Funds.push(tmp.toHuman());
-                // ↓ ???
                 console.log(i);
                 console.log("check");
                 console.log(Funds.length);
             }
-        })()
-    })
+        };
+        fn();
+    
+        console.log(Funds);
+    });
     //const index = apiBC.query.fundRaising.fundCount();
     return (
+        
+        
         <div>
             {
                 <table border={1}>
+                    <tbody>
                     {Funds.map((fund: any) => {
                         return (
                             <tr>
-                                <td >{fund.creater}</td>
-                                <td >{fund.deposit}</td>
-                                <td >{fund.raised}</td>
-                                <td >{fund.start}</td>
-                                <td >{fund.end}</td>
-                                <td >{fund.goal}</td>
-                                <td >{fund.totalvote}</td>
+                                <td key={fund.creater}>{fund.creater}</td>
+                                <td key={fund.deposit}>{fund.deposit}</td>
+                                <td key={fund.raised}>{fund.raised}</td>
+                                <td key={fund.start}>{fund.start}</td>
+                                <td key={fund.end}>{fund.end}</td>
+                                <td key={fund.goal}>{fund.goal}</td>
+                                <td key={fund.totalvote}>{fund.totalvote}</td>
                             </tr>
                         )
                     })}
+                    </tbody>
                 </table>
             }
         </div>

@@ -119,33 +119,6 @@ export default function Update(props: IUpdateProps) {
         // change module
         console.log("current Account:", accounts);
         const res = await apiBC.query.fundRaising.funds(0);
-        var sampleArea = document.getElementById("sampleArea");
-        if (sampleArea) {
-            /*
-            sampleArea.innerHTML = res.toHuman().id;
-            const account: Account = {
-              id: res.toHuman().id,
-              role: res.toHuman().role,
-              status: res.toHuman().status,
-              metadata: res.toHuman().metadata,
-              score: res.toHuman().score,
-            }
-            */
-        }
-
-        //const res = await apiBC.query.fundRaising.funds
-        //const index = await apiBC.query.fundRaising.fundCount()
-
-        /*
-        for (let i = 0; i < index.toHuman(); i++) {
-            const tmp = await apiBC.query.fundRaising.funds(i)
-            Funds.push(tmp.toHuman());
-            console.log(Funds);
-        }
-        console.log("a");
-        console.log(Funds);
-        console.log("a");
-        */
 
         console.log(res.toHuman());
     }
@@ -190,8 +163,6 @@ export default function Update(props: IUpdateProps) {
             </div>
 
             <br></br>
-
-            <div id="sampleArea">サンプル</div>
 
             {<FundInfo />}
 
