@@ -6,8 +6,6 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { web3FromAddress } from '@polkadot/extension-dapp';
 import ButtonAction from "../../components/ButtonAction";
-import AccInfo from "../../components/AccInfo";
-import FundInfo from "../../components/FundInfo";
 
 export interface IUpdateProps { }
 
@@ -149,14 +147,6 @@ export default function Update(props: IUpdateProps) {
     )
   }
 
-  const items = [
-    { A: "A1", B: "B1", C: "C1" },
-    { A: "A1", B: "B2", C: "C1" },
-    { A: "A1", B: "B2", C: "C2" },
-    { A: "A2", B: "B1", C: "C1" },
-    { A: "A2", B: "B1", C: "C2" },
-  ];
-
   return (
     <div>
       Update<br></br>
@@ -196,12 +186,14 @@ export default function Update(props: IUpdateProps) {
       <div id="sampleArea">サンプル</div>
 
       <table border={1}>
-        {items.map((item) => {
+        {accs.map((acc: any) => {
           return (
             <tr>
-              <td >{item.A}</td>
-              <td >{item.B}</td>
-              <td >{item.C}</td>
+              <td >{acc.id}</td>
+              <td >{acc.role}</td>
+              <td >{acc.status}</td>
+              <td >{acc.metadata}</td>
+              <td >{acc.score}</td>
             </tr>
           )
         })}
@@ -210,8 +202,6 @@ export default function Update(props: IUpdateProps) {
       <Button onClick={onClieckAccount}>
           Account
         </Button>
-
-      {<FundInfo />}
     </div>
   )
 }

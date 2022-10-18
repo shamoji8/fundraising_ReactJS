@@ -9,7 +9,7 @@ import { responsiveFontSizes } from '@mui/material';
 interface Props {
 }
 
-type Fund = {
+interface Fund {
     creater: string;
     beneficiary: string;
     deposit: string;
@@ -20,59 +20,61 @@ type Fund = {
     totalvote: string;
 }
 
-let Funds: any = [
-    {
-        creater: "creater",
-        beneficiary: "beneficiary",
-        deposit: "deposit",
-        raised: "raised",
-        start: "start",
-        end: "end",
-        goal: "goal",
-        totalvote: "totalvote"
-    }
-];
+type Funds = Fund[];
 
 const FundInfo: React.FC<Props> = (props) => {
 
-    const { getExtension, accounts } = useSubstrate();
+    //const { getExtension, accounts } = useSubstrate();
 
     const [apiBC, setApiBC] = React.useState<any>();
-
+    const [listFunds, setListFunds] = React.useState<Funds>();
     const callApi = async () => {
         const api = await getApi();
 
         setApiBC(api);
     };
+    let len;
+    const getFund = async (): Promise<Funds> => {
+        //const res = await apiBC.query.fundRaising.funds
+        let res: Funds = [];
+        const index = await apiBC.query.fundRaising.fundCount()
+        let num: number = index.toHuman()
+        len = num;
+        console.log("num:", num);
+        // const tmp = await apiBC.query.fundRaising.funds(0);
+        // console.log("res:", tmp.toHuman());
+        for (let i = 0; i < num; i++) {
+            const tmp = await apiBC.query.fundRaising.funds(i)
+            res.push(tmp.toHuman());
 
+        }
+        return res;
+    };
+
+    const listFund = async ()=>{
+        let fund = await getFund();
+
+        setListFunds(fund);
+    }
     React.useEffect(() => {
         callApi();
-        getExtension();
+        //getExtension();
+        //getFund();
+        //setListFunds(getFund());
     }, []);
 
-    let len;
+    // React.useEffect(() => {
 
-    useEffect(() => {
-        const fn = async () => {
-            //const res = await apiBC.query.fundRaising.funds
-            const index = await apiBC.query.fundRaising.fundCount()
-            let num: number = index.toHuman()
-            len = num;
-            console.log("num:", num);
+    //     getFund();
+    // }, []);
 
-            for (let i = 0; i < num; i++) {
-                const tmp = await apiBC.query.fundRaising.funds(i)
-                Funds.push(tmp.toHuman());
-                console.log(i);
-                console.log("check");
-                console.log(Funds.length);
-            }
-        };
-        fn();
+    // useEffect(() => {
+
     
-        console.log(Funds);
-    });
+    //     console.log(Funds);
+    // });
     //const index = apiBC.query.fundRaising.fundCount();
+
     return (
         
         
@@ -80,18 +82,19 @@ const FundInfo: React.FC<Props> = (props) => {
             {
                 <table border={1}>
                     <tbody>
-                    {Funds.map((fund: any) => {
+                    {
+                    listFunds?.map((fund: any) => {
                         return (
                             <tr>
-                                <td key={fund.creater}>{fund.creater}</td>
-                                <td key={fund.deposit}>{fund.deposit}</td>
-                                <td key={fund.raised}>{fund.raised}</td>
-                                <td key={fund.start}>{fund.start}</td>
-                                <td key={fund.end}>{fund.end}</td>
-                                <td key={fund.goal}>{fund.goal}</td>
-                                <td key={fund.totalvote}>{fund.totalvote}</td>
+                                <td key={"Creator"}>{fund.creater}</td>
+                                <td key={"Deposit"}>{fund.deposit}</td>
+                                <td key={"Raised"}>{fund.raised}</td>
+                                <td key={"Start"}>{fund.start}</td>
+                                <td key={"End"}>{fund.end}</td>
+                                <td key={"Goal"}>{fund.goal}</td>
+                                <td key={"Totalvote"}>{fund.totalvote}</td>
                             </tr>
-                        )
+                        ) 
                     })}
                     </tbody>
                 </table>

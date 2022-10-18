@@ -164,7 +164,9 @@ export default function Update(props: IUpdateProps) {
 
             <br></br>
 
-            {<FundInfo />}
+            {/* <FundInfo /> */}
+
+
 
         </div >
     )
