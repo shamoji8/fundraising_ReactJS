@@ -24,7 +24,7 @@ type Funds = Fund[];
 
 const FundInfo: React.FC<Props> = (props) => {
 
-    //const { getExtension, accounts } = useSubstrate();
+    const { getExtension, accounts } = useSubstrate();
 
     const [apiBC, setApiBC] = React.useState<any>();
     const [listFunds, setListFunds] = React.useState<Funds>();
@@ -33,14 +33,23 @@ const FundInfo: React.FC<Props> = (props) => {
 
         setApiBC(api);
     };
-    let len;
     const getFund = async (): Promise<Funds> => {
         //const res = await apiBC.query.fundRaising.funds
-        let res: Funds = [];
         const index = await apiBC.query.fundRaising.fundCount()
         let num: number = index.toHuman()
-        len = num;
         console.log("num:", num);
+        let res: Funds = [
+            {
+                creater: "creater",
+                beneficiary: "beneficiary",
+                deposit: "deposit",
+                raised: "raised",
+                start: "start time",
+                end: "end time",
+                goal: "goal",
+                totalvote: "totalvotes"
+            }
+        ];
         // const tmp = await apiBC.query.fundRaising.funds(0);
         // console.log("res:", tmp.toHuman());
         for (let i = 0; i < num; i++) {
@@ -48,20 +57,35 @@ const FundInfo: React.FC<Props> = (props) => {
             res.push(tmp.toHuman());
 
         }
+
+        if(res.length == 1) {
+            res.push({
+                creater: "N/A",
+                beneficiary: "N/A",
+                deposit: "N/A",
+                raised: "N/A",
+                start: "N/A",
+                end: "N/A",
+                goal: "N/A",
+                totalvote: "N/A"
+            });
+        }
         return res;
     };
 
-    const listFund = async ()=>{
+    const listFund = async () => {
         let fund = await getFund();
 
         setListFunds(fund);
     }
     React.useEffect(() => {
         callApi();
-        //getExtension();
-        //getFund();
-        //setListFunds(getFund());
-    }, []);
+        // getExtension();
+        // getFund();
+        listFund()
+    }, [apiBC]);
+
+    console.log('listfunc', listFunds)
 
     // React.useEffect(() => {
 
@@ -70,32 +94,32 @@ const FundInfo: React.FC<Props> = (props) => {
 
     // useEffect(() => {
 
-    
+
     //     console.log(Funds);
     // });
     //const index = apiBC.query.fundRaising.fundCount();
 
     return (
-        
-        
+
+
         <div>
             {
                 <table border={1}>
                     <tbody>
-                    {
-                    listFunds?.map((fund: any) => {
-                        return (
-                            <tr>
-                                <td key={"Creator"}>{fund.creater}</td>
-                                <td key={"Deposit"}>{fund.deposit}</td>
-                                <td key={"Raised"}>{fund.raised}</td>
-                                <td key={"Start"}>{fund.start}</td>
-                                <td key={"End"}>{fund.end}</td>
-                                <td key={"Goal"}>{fund.goal}</td>
-                                <td key={"Totalvote"}>{fund.totalvote}</td>
-                            </tr>
-                        ) 
-                    })}
+                        {
+                            listFunds?.map((fund: any, index: number) => {
+                                return (
+                                    <tr key={index}>
+                                        <td key={"Creator"}>{fund.creater}</td>
+                                        <td key={"Deposit"}>{fund.deposit}</td>
+                                        <td key={"Raised"}>{fund.raised}</td>
+                                        <td key={"Start"}>{fund.start}</td>
+                                        <td key={"End"}>{fund.end}</td>
+                                        <td key={"Goal"}>{fund.goal}</td>
+                                        <td key={"Totalvote"}>{fund.totalvote}</td>
+                                    </tr>
+                                )
+                            })}
                     </tbody>
                 </table>
             }

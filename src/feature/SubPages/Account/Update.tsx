@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { web3FromAddress } from '@polkadot/extension-dapp';
 import ButtonAction from "../../components/ButtonAction";
+import ShowMap from "../../components/ShowMap";
 
 export interface IUpdateProps { }
 
@@ -122,6 +123,10 @@ export default function Update(props: IUpdateProps) {
       console.log(res.toHuman().score);
     }
     //console.log(res.toHuman());
+
+    return (
+        <ShowMap data = {accs}/>
+    )
   }
 
   const onClickAddText = () => {
@@ -185,7 +190,7 @@ export default function Update(props: IUpdateProps) {
 
       <div id="sampleArea">サンプル</div>
 
-      <table border={1}>
+      {/* <table border={1}>
         {accs.map((acc: any) => {
           return (
             <tr>
@@ -197,11 +202,13 @@ export default function Update(props: IUpdateProps) {
             </tr>
           )
         })}
-      </table>
+      </table> */}
 
-      <Button onClick={onClieckAccount}>
+      {/* <Button onClick={onClieckAccount}>
           Account
-        </Button>
+        </Button> */}
+
+      <ShowMap data = {accs}/>
     </div>
   )
 }

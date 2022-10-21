@@ -135,17 +135,14 @@ export default function Update(props: IUpdateProps) {
             <p><ButtonAction link2page={"/"} buttonName={"BACK TO HOMEPAGE"} multi_col={true} /></p> <br></br>
             <br></br>
 
-            <p>Type Metadate</p>
+            {/* <p>Type Metadate</p>
             <input
                 value={text}
                 onChange={(event) => setText(event.target.value)}
             />
-            {/* ↓buttonを追加 */}
+
             <button onClick={onClickAddText}>追加</button>
 
-            {/*<p>リアルタイム：{text}</p>*/}
-
-            {/* ↓pタグを追加 */}
             <p>ボタンクリック：{addText}</p>
 
             <div className='register'>
@@ -162,9 +159,9 @@ export default function Update(props: IUpdateProps) {
                 </Button>
             </div>
 
-            <br></br>
+            <br></br> */}
 
-            {/* <FundInfo /> */}
+            <FundInfo />
 
 
 
