@@ -18,6 +18,7 @@ interface Fund {
     end: string;
     goal: string;
     totalvote: string;
+    voteflag: boolean;
 }
 
 type Funds = Fund[];
@@ -47,7 +48,8 @@ const FundInfo: React.FC<Props> = (props) => {
                 start: "start time",
                 end: "end time",
                 goal: "goal",
-                totalvote: "totalvotes"
+                totalvote: "totalvotes",
+                voteflag: false,
             }
         ];
         // const tmp = await apiBC.query.fundRaising.funds(0);
@@ -55,7 +57,7 @@ const FundInfo: React.FC<Props> = (props) => {
         for (let i = 0; i < num; i++) {
             const tmp = await apiBC.query.fundRaising.funds(i)
             res.push(tmp.toHuman());
-
+            console.log(typeof tmp.toHuman())
         }
 
         if(res.length == 1) {
@@ -67,7 +69,8 @@ const FundInfo: React.FC<Props> = (props) => {
                 start: "N/A",
                 end: "N/A",
                 goal: "N/A",
-                totalvote: "N/A"
+                totalvote: "N/A",
+                voteflag: false
             });
         }
         return res;
@@ -117,6 +120,7 @@ const FundInfo: React.FC<Props> = (props) => {
                                         <td key={"End"}>{fund.end}</td>
                                         <td key={"Goal"}>{fund.goal}</td>
                                         <td key={"Totalvote"}>{fund.totalvote}</td>
+                                        {/* <td key={"Voteflag"}>{fund.voteflag}</td> */}
                                     </tr>
                                 )
                             })}

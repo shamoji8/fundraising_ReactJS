@@ -31,13 +31,13 @@ export default function Update(props: IUpdateProps) {
   /* ↓state変数「addText」を定義 */
   const [addText, setAddText] = useState("");
 
-  type Account = {
-    id: string;
-    role: string;
-    status: string;
-    metadata: string;
-    score: string;
-  }
+  // type Account = {
+  //   id: string;
+  //   role: string;
+  //   status: string;
+  //   metadata: string;
+  //   score: string;
+  // }
 
   const handleTransaction = async () => {
 
@@ -84,49 +84,51 @@ export default function Update(props: IUpdateProps) {
           );
       });
       console.log(await events);
-      console.log("a");
-      console.log(await apiBC.query.fundRaising.funds);
+      // console.log("a");
+      // console.log(await apiBC.query.fundRaising.funds);
     }
 
   }
 
-  let accs: any = [
-    {id: "id", role: "role", status: "status", metadata: "metadata", score: "score"},
-    {id: "", role: "", status: "", metadata: "", score: ""}
-  ];
+  // let accs: any = [
+  //   {id: "id", role: "role", status: "status", metadata: "metadata", score: "score"},
+  //   {id: "", role: "", status: "", metadata: "", score: ""}
+  // ];
 
   const handleQuery = async () => {
     // change module
     console.log("current Account:", accounts);
     const res = await apiBC.query.account.accountStorage(accounts[0].address);
-    var sampleArea = document.getElementById("sampleArea");
-    if (sampleArea) {
-      // sampleArea.innerHTML = res.toHuman().id;
-      sampleArea.innerHTML =await apiBC.query.fundRaising.fundCount();
-      /*
-      const account: Account = {
-        id: res.toHuman().id,
-        role: res.toHuman().role,
-        status: res.toHuman().status,
-        metadata: res.toHuman().metadata,
-        score: res.toHuman().score,
-      }
-      */
-      accs[1].id = res.toHuman().id;
-      accs[1].role = res.toHuman().role;
-      accs[1].status = res.toHuman().status;
-      accs[1].metadata = res.toHuman().metadata;
-      accs[1].score = res.toHuman().score;
-      //accs.push(account);
-      console.log(accs);
-      //console.log(account);
-      console.log(res.toHuman().score);
-    }
-    //console.log(res.toHuman());
+    // var sampleArea = document.getElementById("sampleArea");
+    // if (sampleArea) {
+    //   // sampleArea.innerHTML = res.toHuman().id;
+    //   sampleArea.innerHTML =await apiBC.query.fundRaising.fundCount();
+    //   /*
+    //   const account: Account = {
+    //     id: res.toHuman().id,
+    //     role: res.toHuman().role,
+    //     status: res.toHuman().status,
+    //     metadata: res.toHuman().metadata,
+    //     score: res.toHuman().score,
+    //   }
+    //   */
+    //   accs[1].id = res.toHuman().id;
+    //   accs[1].role = res.toHuman().role;
+    //   accs[1].status = res.toHuman().status;
+    //   accs[1].metadata = res.toHuman().metadata;
+    //   accs[1].score = res.toHuman().score;
+    //   //accs.push(account);
+    //   console.log(accs);
+    //   //console.log(account);
+    //   console.log(res.toHuman().score);
+    // }
+    // //console.log(res.toHuman());
 
-    return (
-        <ShowMap data = {accs}/>
-    )
+    // return (
+    //   <div>a
+    //     {/* <ShowMap data = {accs}/> */}
+    //     </div>
+    // )
   }
 
   const onClickAddText = () => {
@@ -134,23 +136,23 @@ export default function Update(props: IUpdateProps) {
     setText("");
   }
 
-  const onClieckAccount = () => {
-    return (
-      <table border={1}>
-        {accs.map((acc: any) => {
-          return (
-            <tr>
-              <td >{acc.id}</td>
-              <td >{acc.role}</td>
-              <td >{acc.status}</td>
-              <td >{acc.metadata}</td>
-              <td >{acc.score}</td>
-            </tr>
-          )
-        })}
-      </table>
-    )
-  }
+  // const onClieckAccount = () => {
+  //   return (
+  //     <table border={1}>
+  //       {accs.map((acc: any) => {
+  //         return (
+  //           <tr>
+  //             <td >{acc.id}</td>
+  //             <td >{acc.role}</td>
+  //             <td >{acc.status}</td>
+  //             <td >{acc.metadata}</td>
+  //             <td >{acc.score}</td>
+  //           </tr>
+  //         )
+  //       })}
+  //     </table>
+  //   )
+  // }
 
   return (
     <div>
@@ -188,7 +190,7 @@ export default function Update(props: IUpdateProps) {
 
       <br></br>
 
-      <div id="sampleArea">サンプル</div>
+      {/* <div id="sampleArea">サンプル</div> */}
 
       {/* <table border={1}>
         {accs.map((acc: any) => {
@@ -208,7 +210,7 @@ export default function Update(props: IUpdateProps) {
           Account
         </Button> */}
 
-      <ShowMap data = {accs}/>
+      {/* <ShowMap data = {accs}/> */}
     </div>
   )
 }
