@@ -1,11 +1,12 @@
 import * as React from "react";
 import ButtonAction from "../components/ButtonAction";
+import "../cssInfo.css";
 
 interface IHomePageProps {}
 
 const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
   return (
-  <div>
+  <div className="home-page">
     <p>Homepage</p>
 
     <br></br>
