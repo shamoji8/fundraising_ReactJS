@@ -7,6 +7,7 @@ import { useSubstrate } from "../../api/providers/connectContext";
 import { responsiveFontSizes } from '@mui/material';
 
 interface Props {
+    flag: boolean;
 }
 
 interface Fund {
@@ -24,7 +25,8 @@ interface Fund {
 
 type Funds = Fund[];
 
-const FundInfo: React.FC<Props> = (props) => {
+const FlagInfo: React.FC<Props> = (props) => {
+    const { flag } = props;
 
     const { getExtension, accounts } = useSubstrate();
 
@@ -40,29 +42,49 @@ const FundInfo: React.FC<Props> = (props) => {
         const index = await apiBC.query.fundRaising.fundCount()
         let num: number = index.toHuman()
         console.log("num:", num);
-        let res: Funds = [
-            {
-                fundnum: "fundindex",
-                creater: "creater",
-                beneficiary: "beneficiary",
-                deposit: "deposit",
-                raised: "raised",
-                start: "start time",
-                end: "end time",
-                goal: "goal",
-                totalvote: "totalvotes",
-                voteflag: false,
-            }
-        ];
+        let res: Funds = [];
+        if (flag) {
+            res.push(
+                {
+                    fundnum: "fundindex",
+                    creater: "creater",
+                    beneficiary: "beneficiary",
+                    deposit: "deposit",
+                    raised: "raised",
+                    start: "start time",
+                    end: "end time",
+                    goal: "goal",
+                    totalvote: "totalvotes",
+                    voteflag: true,
+                }
+            )
+        } else {
+            res.push(
+                {
+                    fundnum: "fundindex",
+                    creater: "creater",
+                    beneficiary: "beneficiary",
+                    deposit: "deposit",
+                    raised: "raised",
+                    start: "start time",
+                    end: "end time",
+                    goal: "goal",
+                    totalvote: "totalvotes",
+                    voteflag: false,
+                }
+            )
+        }
         // const tmp = await apiBC.query.fundRaising.funds(0);
         // console.log("res:", tmp.toHuman());
         for (let i = 0; i < num; i++) {
             const tmp = await apiBC.query.fundRaising.funds(i)
+            const _flag = tmp.toHuman().voteflag;
+            if (flag != _flag) continue;
             res.push(tmp.toHuman());
             console.log(typeof tmp.toHuman())
         }
 
-        if(res.length == 1) {
+        if (res.length == 1) {
             res.push({
                 fundnum: "N/A",
                 creater: "N/A",
@@ -116,7 +138,7 @@ const FundInfo: React.FC<Props> = (props) => {
                             listFunds?.map((fund: any, index: number) => {
                                 return (
                                     <tr key={index}>
-                                        <td key={"Fundnum"}>{fund.fundnum}</td>
+                                        <td key={"fundnum"}>{fund.fundnum}</td>
                                         <td key={"Creator"}>{fund.creater}</td>
                                         <td key={"Deposit"}>{fund.deposit}</td>
                                         <td key={"Raised"}>{fund.raised}</td>
@@ -137,4 +159,4 @@ const FundInfo: React.FC<Props> = (props) => {
 
 }
 
-export default FundInfo
+export default FlagInfo

@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { web3FromAddress } from '@polkadot/extension-dapp';
 import ButtonAction from "../../components/ButtonAction";
+import FlagInfo from "../../components/FlagInfo";
 
 export interface IUpdateProps { }
 
@@ -125,6 +126,8 @@ export default function Update(props: IUpdateProps) {
           Query me
         </Button>
       </div>
+
+      <FlagInfo flag = {false}/>
     </div>
   )
 }

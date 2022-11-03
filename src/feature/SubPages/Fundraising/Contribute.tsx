@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { web3FromAddress } from '@polkadot/extension-dapp';
 import ButtonAction from "../../components/ButtonAction";
+import FlagInfo from "../../components/FlagInfo";
 
 export interface IContributeProps { }
 
@@ -151,6 +152,8 @@ export default function Evaluation(props: IContributeProps) {
           Query me
         </Button>
       </div>
+
+      <FlagInfo flag = {true}/>
     </div>
   )
 }
