@@ -6,6 +6,8 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { web3FromAddress } from '@polkadot/extension-dapp';
 import ButtonAction from "../../components/ButtonAction";
+import FundInfo from "../../components/FundInfo";
+import { ToastContainer, toast } from 'react-toastify';
 
 export interface IUpdateProps { }
 
@@ -74,6 +76,12 @@ export default function Update(props: IUpdateProps) {
           );
       });
       console.log(await events);
+      const notification = (await events) as string;
+      if (notification.includes("Success")) {
+        toast.success(notification);
+      } else {
+        toast.error(notification);
+      }
     }
 
   }
@@ -92,6 +100,7 @@ export default function Update(props: IUpdateProps) {
 
   return (
     <div>
+      <ToastContainer />
       Dissolve<br></br>
 
       <p><ButtonAction link2page={"/Fundraising"} buttonName={"Fundraising"} multi_col={true} /></p>
@@ -125,6 +134,8 @@ export default function Update(props: IUpdateProps) {
           Query me
         </Button>
       </div>
+
+      <FundInfo/>
     </div>
   )
 }

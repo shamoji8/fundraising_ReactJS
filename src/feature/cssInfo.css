@@ -14,7 +14,7 @@ body {
     overflow-x: hidden;
     font-size: 1.15rem;
     font-family: "Montserrat", sans-serif;
-    background-color: #87a4b3;
+    background-color: #F5F3F1;
 }
 
 .home-page {
@@ -23,7 +23,7 @@ body {
     margin-top: 2rem;
     letter-spacing: 0.25rem;
     font-weight: 600;
-    color: #ffffff;
+    color: #000000;
     align-items: center;
 }
 
@@ -56,7 +56,6 @@ body {
   border:none;  
   text-decoration: none;
 }
-
 .button:hover {
   justify-content: space-around;
   margin-top: 0.5rem;
@@ -70,7 +69,6 @@ body {
   border:none;
   text-decoration: none;
 }
-
 .button-scroll:hover {
     justify-content: space-around;
     margin-top: 0.5rem;
@@ -84,7 +82,6 @@ body {
     border: none;
     text-decoration: none;
 }
-
 .button-scroll a {
     text-decoration: none;
     color: inherit;
@@ -332,16 +329,4 @@ th {
 td {
     text-align: center;
     font-size: 15px;
-}
-
-.Toastify__toast--success {
-    /* background: #FCA7A9 !important; */
-    width: 600px !important;
-    margin-left: -300px;
-}
-
-.Toastify__toast--error {
-    /* background: #FCA7A9 !important; */
-    width: 600px !important;
-    margin-left: -300px;
 }

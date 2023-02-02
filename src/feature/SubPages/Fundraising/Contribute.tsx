@@ -6,6 +6,9 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { web3FromAddress } from '@polkadot/extension-dapp';
 import ButtonAction from "../../components/ButtonAction";
+import FlagInfo from "../../components/FlagInfo";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 export interface IContributeProps { }
 
@@ -79,6 +82,13 @@ export default function Evaluation(props: IContributeProps) {
           );
       });
       console.log(await events);
+
+      const notification = (await events) as string;
+      if (notification.includes("Success")) {
+        toast.success(notification);
+      } else {
+        toast.error(notification);
+      }
     }
 
   }
@@ -102,6 +112,7 @@ export default function Evaluation(props: IContributeProps) {
 
   return (
     <div>
+      <ToastContainer />
       Contribute<br></br>
 
       <p><ButtonAction link2page={"/Fundraising"} buttonName={"Fundraising"} multi_col={true} /></p>
@@ -124,7 +135,7 @@ export default function Evaluation(props: IContributeProps) {
       <p>ボタンクリック：{addText1}</p>
 
       <br></br>
-      <p>Account</p>
+      <p>Value</p>
       <input
         value={text2}
         onChange={(event) => setText2(event.target.value)}
@@ -151,6 +162,8 @@ export default function Evaluation(props: IContributeProps) {
           Query me
         </Button>
       </div>
+
+      <FlagInfo flag = {true}/>
     </div>
   )
 }

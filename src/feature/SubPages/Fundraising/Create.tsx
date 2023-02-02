@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { web3FromAddress } from '@polkadot/extension-dapp';
 import ButtonAction from "../../components/ButtonAction";
+import { ToastContainer, toast } from 'react-toastify';
 
 export interface IEvaluationProps { }
 
@@ -83,7 +84,17 @@ export default function Evaluation(props: IEvaluationProps) {
             }
           );
       });
+      console.log("a");
       console.log(await events);
+      console.log("i");
+      console.log(await apiBC.query.account.accountStorage(accounts[0].address));
+
+      const notification = (await events) as string;
+      if (notification.includes("Success")) {
+        toast.success(notification);
+      } else {
+        toast.error(notification);
+      }
     }
 
   }
@@ -112,6 +123,7 @@ export default function Evaluation(props: IEvaluationProps) {
 
   return (
     <div>
+      <ToastContainer />
       Create<br></br>
 
       <p><ButtonAction link2page={"/Fundraising"} buttonName={"Fundraising"} multi_col={true} /></p>

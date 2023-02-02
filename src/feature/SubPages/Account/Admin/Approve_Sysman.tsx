@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { web3FromAddress } from '@polkadot/extension-dapp';
 import ButtonAction from "../../../components/ButtonAction";
+import { ToastContainer, toast } from 'react-toastify';
 
 export interface IApproveSysmanProps { }
 
@@ -74,6 +75,13 @@ export default function Approve_Sysman(props: IApproveSysmanProps) {
           );
       });
       console.log(await events);
+
+      const notification = (await events) as string;
+      if (notification.includes("Success")) {
+        toast.success(notification);
+      } else {
+        toast.error(notification);
+      }
     }
 
   }
@@ -92,6 +100,7 @@ export default function Approve_Sysman(props: IApproveSysmanProps) {
 
   return (
     <div>
+      <ToastContainer />
       Approve Sysman<br></br>
 
       <p><ButtonAction link2page={"/admin"} buttonName={"admin"} multi_col={true} /></p>

@@ -7,6 +7,8 @@ import Button from '@mui/material/Button';
 import { web3FromAddress } from '@polkadot/extension-dapp';
 import ButtonAction from "../../components/ButtonAction";
 import ShowMap from "../../components/ShowMap";
+import { toNamespacedPath } from "path";
+import { ToastContainer, toast } from 'react-toastify';
 
 export interface IUpdateProps { }
 
@@ -84,15 +86,21 @@ export default function Update(props: IUpdateProps) {
           );
       });
       console.log(await events);
-      console.log("a");
       console.log(await apiBC.query.fundRaising.funds);
+
+      const notification = (await events) as string;
+      if (notification.includes("Success")) {
+        toast.success(notification);
+      } else {
+        toast.error(notification);
+      }
     }
 
   }
 
   let accs: any = [
-    {id: "id", role: "role", status: "status", metadata: "metadata", score: "score"},
-    {id: "", role: "", status: "", metadata: "", score: ""}
+    { id: "id", role: "role", status: "status", metadata: "metadata", score: "score" },
+    { id: "", role: "", status: "", metadata: "", score: "" }
   ];
 
   const handleQuery = async () => {
@@ -102,7 +110,7 @@ export default function Update(props: IUpdateProps) {
     var sampleArea = document.getElementById("sampleArea");
     if (sampleArea) {
       // sampleArea.innerHTML = res.toHuman().id;
-      sampleArea.innerHTML =await apiBC.query.fundRaising.fundCount();
+      sampleArea.innerHTML = await apiBC.query.fundRaising.fundCount();
       /*
       const account: Account = {
         id: res.toHuman().id,
@@ -125,7 +133,7 @@ export default function Update(props: IUpdateProps) {
     //console.log(res.toHuman());
 
     return (
-        <ShowMap data = {accs}/>
+      <ShowMap data={accs} />
     )
   }
 
@@ -154,6 +162,7 @@ export default function Update(props: IUpdateProps) {
 
   return (
     <div>
+      <ToastContainer />
       Update<br></br>
 
       <p><ButtonAction link2page={"/account"} buttonName={"account"} multi_col={true} /></p>
@@ -208,7 +217,7 @@ export default function Update(props: IUpdateProps) {
           Account
         </Button> */}
 
-      <ShowMap data = {accs}/>
+      <ShowMap data={accs} />
     </div>
   )
 }
